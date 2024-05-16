@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/antd/5.17.0/reset.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs/dayjs.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/antd/5.17.2/antd.min.js"
+      integrity="sha512-YmpM/YwceJsd7Me5HYwAU/Hg6Sr/p6hHPxuaOj8a7hXbcvf8fg0ncgZfb+rk1IbTrq4sTQ4BHAQiik9r3sm4dA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/antd/5.17.2/reset.min.css"
+      integrity="sha512-vw1Eh0YXwSfFcRPIxtAvonjwHTEqKqwq7ucziF/ZCMEzRlmECgzmGSIHecwetYQXMUE1AL4mlxI7OCt38WvOgw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>导航栏</title>
+    <style>
+      html {
+        font-size: 100px;
+      }
+      .ant-menu {
+        min-width: 170px;
+        max-width: 250px;
+        width: 2rem !important;
+        transition: all 0.3s;
+      }
+      @media screen and (min-width: 500px) and (max-width: 800px) {
+        .ant-menu {
+          min-width: 140px!important;
+          max-width: 180px!important;
+        }
+        .ant-menu-submenu-title {
+          padding-left: 10px!important;
+        }
+        .ant-menu-item-group-title {
+          padding: 2px 22px!important;
+        }
+        .ant-menu-item {
+          padding-left: 22px!important;
+        }
+      }
+      @media screen and (max-width: 350px) {
+        .ant-menu {
+          max-width: 120px!important;
+        }
+      }
+      @media screen and (max-width: 500px) {
+        .ant-menu {
+          min-width: 100px;
+          max-width: 140px;
+        }
+        .ant-menu-submenu-title {
+          padding-left: 5px!important;
+          font-size: 12px!important;
+          line-height: 30px!important;
+          height: 30px!important;
+        }
+        .ant-menu-item-group-title {
+          padding: 2px 12px!important;
+          font-size: 12px!important;
+          line-height: 1.2!important;
+        }
+        .ant-menu-item {
+          padding-left: 15px!important;
+          font-size: 12px!important;
+          line-height: 30px!important;
+          height: 30px!important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script type="text/babel">
+      const Menu = antd.Menu;
+      const items = [
+        {
+          key: "sub1",
+          label: "Navigation One",
+          children: [
+            {
+              key: "g1",
+              label: "Item 1",
+              type: "group",
+              children: [
+                { key: "1", label: "Option 1" },
+                { key: "2", label: "Option 2" },
+              ],
+            },
+            {
+              key: "g2",
+              label: "Item 2",
+              type: "group",
+              children: [
+                { key: "3", label: "Option 3" },
+                { key: "4", label: "Option 4" },
+              ],
+            },
+          ],
+        },
+        {
+          key: "sub2",
+          label: "Navigation Two",
+          children: [
+            { key: "5", label: "Option 5" },
+            { key: "6", label: "Option 6" },
+            {
+              key: "sub3",
+              label: "Submenu",
+              children: [
+                { key: "7", label: "Option 7" },
+                { key: "8", label: "Option 8" },
+              ],
+            },
+          ],
+        },
+        {
+          type: "divider",
+        },
+        {
+          key: "sub4",
+          label: "Navigation Three",
+          children: [
+            { key: "9", label: "Option 9" },
+            { key: "10", label: "Option 10" },
+            { key: "11", label: "Option 11" },
+            { key: "12", label: "Option 12" },
+          ],
+        },
+        {
+          key: "grp",
+          label: "Group",
+          type: "group",
+          children: [
+            { key: "13", label: "Option 13" },
+            { key: "14", label: "Option 14" },
+          ],
+        },
+      ];
+
+      const onClick = (e) => {
+        console.log("click ", e);
+      };
+
+      const App = () => {
+        return (
+          <Menu
+            onClick={onClick}
+            style={{ width: 256 }}
+            defaultSelectedKeys={["1"]}
+            defaultOpenKeys={["sub1"]}
+            mode="inline"
+            items={items}
+          />
+        );
+      };
+      const app = ReactDOM.createRoot(document.getElementById("app"));
+
+      const handleFontSize = () => {
+        const htmlDom = document.querySelector("html");
+        const designWidth = 1024;
+        htmlDom.style.fontSize =
+          (100 / designWidth) * document.documentElement.clientWidth + "px";
+      };
+      window.addEventListener('resize', handleFontSize);
+      window.addEventListener('orientationchange', handleFontSize);
+      handleFontSize();
+      app.render(<App />);
+    </script>
+  </body>
+</html>
